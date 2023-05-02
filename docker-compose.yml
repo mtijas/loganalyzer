@@ -1,0 +1,33 @@
+version: "3.5"
+
+services:
+  loganalyzerapp:
+    image: loganalyzer:dev
+    container_name: loganalyzer_app_1
+    build:
+      context: .
+    ports:
+      - 8080:8000
+    volumes:
+      - ./src:/app/src/:z
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    volumes:
+      - loganalyzer-dev-data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - 8081:8080
+    env_file:
+      - .env
+
+volumes:
+  loganalyzer-dev-data:
