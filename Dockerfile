@@ -19,14 +19,13 @@ ENV NGINX_ENVSUBST_OUTPUT_DIR /loganalyzer/nginx-conf.d
 COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY ./nginx.default.conf.template ./nginx-templates/default.conf.template
 
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-
-COPY ./ ./
-
-RUN chmod +x ./entrypoint.sh
-
-RUN chown -R loganalyzer:loganalyzer /loganalyzer
+# COPY ./ ./
+#
+# RUN chown -R loganalyzer:loganalyzer /loganalyzer
 
 USER loganalyzer
 
-CMD ["/loganalyzer/entrypoint.sh"]
+CMD ["/entrypoint.sh"]

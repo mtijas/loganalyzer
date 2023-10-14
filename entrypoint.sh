@@ -14,4 +14,4 @@
 #   /docker-entrypoint.sh nginx -g "daemon off;"
 # fi
 
-php /loganalyzer/app/artisan serve
+php /loganalyzer/artisan serve
