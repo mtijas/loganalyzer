@@ -7,12 +7,12 @@ services:
     build:
       context: .
     volumes:
-      - ./:/loganalyzer/:z
+      - ./logapp/:/loganalyzer/logapp/:z
       - loganalyzer-media:/loganalyzer/media
     ports:
       - 8080:8000
     env_file:
-      - .env
+      - ./logapp/.env
     depends_on:
       - postgres
 
@@ -22,7 +22,7 @@ services:
     volumes:
       - psql-data:/var/lib/postgresql/data
     env_file:
-      - .env
+      - ./logapp/.env
 
   adminer:
     image: adminer:latest
@@ -30,7 +30,7 @@ services:
     ports:
       - 8082:8080
     env_file:
-      - .env
+      - ./logapp/.env
 
 volumes:
   psql-data:

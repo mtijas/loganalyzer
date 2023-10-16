@@ -5,7 +5,7 @@
 # python3 /loganalyzer/app/manage.py migrate
 # python3 /loganalyzer/app/manage.py collectstatic --no-input
 # python3 /loganalyzer/app/manage.py compilemessages
-# if [ "$DEBUG" = "True" ]
+# if [ "$APP_DEBUG" = "True" ]
 # then
 #   /docker-entrypoint.sh nginx
 #   python3 /loganalyzer/app/manage.py runserver 0.0.0.0:8008
@@ -14,4 +14,5 @@
 #   /docker-entrypoint.sh nginx -g "daemon off;"
 # fi
 
-php /loganalyzer/artisan serve
+#tail -F anything
+php logapp/artisan serve --host 0.0.0.0
