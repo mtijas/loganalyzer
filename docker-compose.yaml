@@ -1,5 +1,3 @@
-version: "3.5"
-
 services:
   loganalyzer:
     image: loganalyzer:latest
@@ -8,11 +6,10 @@ services:
       context: .
     volumes:
       - ./logapp/:/loganalyzer/logapp/:z
-      - loganalyzer-media:/loganalyzer/media
     ports:
-      - 8080:8000
+      - 8080:8080
     env_file:
-      - ./logapp/.env
+      - .env
     depends_on:
       - postgres
 
@@ -22,7 +19,7 @@ services:
     volumes:
       - psql-data:/var/lib/postgresql/data
     env_file:
-      - ./logapp/.env
+      - .env
 
   adminer:
     image: adminer:latest
@@ -30,9 +27,8 @@ services:
     ports:
       - 8082:8080
     env_file:
-      - ./logapp/.env
+      - .env
 
 volumes:
   psql-data:
   loganalyzer-media:
-
