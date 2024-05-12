@@ -1,13 +1,24 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+	"net/http"
+	"log"
+
+	loglist "github.com/mtijas/loganalyzer/logapp/loglist"
+)
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
+	addr := "0.0.0.0"
+	port := 8080
+	fullServerAddr := fmt.Sprintf("%s:%d", addr, port)
+
+	http.HandleFunc("GET /ping", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "pong")
 	})
-	r.Run() // listen and serve on 0.0.0.0:8080
+
+	http.Handle("GET /log", new(loglist.LoglistHandler))
+
+	fmt.Printf("Starting the HTTP server at %s\n", fullServerAddr)
+	log.Fatal(http.ListenAndServe(fullServerAddr, nil))
 }
